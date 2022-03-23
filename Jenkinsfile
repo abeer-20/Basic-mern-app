@@ -1,4 +1,4 @@
-node('node') {
+node('node 16.14.1') {
 
 
     currentBuild.result = "SUCCESS"
