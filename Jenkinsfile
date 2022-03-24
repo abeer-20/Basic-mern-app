@@ -1,6 +1,6 @@
 pipeline
 { environment 
-{ registryCredential = "dockerhub_credentials" 
+ registryCredential = "dockerhub_credentials" 
 
     imagenameback = "abeerab/backimage:latest" 
     dockerImageback = 'image-back' 
