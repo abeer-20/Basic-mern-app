@@ -27,9 +27,9 @@ agent any
               sh "${scannerHome}/bin/sonar-scanner \
               -Dsonar.projectkey=mern-app\
               -Dsonar.sources=.\
-              -Dsonar.host.url=hhtp://localhost:9000/\
+              -Dsonar.host.url=hhtp://localhost:9000/ \
               -Dsonar.login=admin \
-              -Dsonar.password=123456789
+              -Dsonar.password=123456789"
             }
           }
         }
