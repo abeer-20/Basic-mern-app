@@ -20,7 +20,7 @@ agent any
                } 
           }
         
-  stage (test sonar"){
+  stage ("test sonar"){
          steps{
           script {
            withSonarQubeEnv("sonarQube") {
