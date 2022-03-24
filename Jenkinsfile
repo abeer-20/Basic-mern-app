@@ -1,52 +1,43 @@
-pipeline { 
-  environment{
-    scannerHome = tool name: 'sonarqube-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-  }
-agent any
+pipeline{
+    environment {
+        imagename = "abeerab/backimage"
+        registryCredential = "dockerhub_credentials"
+        scannerHome = tool name: 'sonarqube-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+        // scannerHome = tool 'sonarqube-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 
- stages { 
-       stage('SonarQube analysis') {
-           steps { 
-             script {
-                scannerHome = tool name: 'SonarScanner',
-                 type: 'hudson.plugins.sonar.SonarRunnerInstallation' withSonarQubeEnv('sonarqube-server') {
-                  sh "${scannerHome}/bin/sonar-scanner" 
-              }
-              }
-            }
     }
-      stage("build"){ 
-
-           steps {
-             sh 'npm install' 
-             sh 'docker --version'
-               } 
-          }
-        
-  stage ('test sonar'){
-         steps{
-          script {
-           withSonarQubeEnv("sonarQube") {
-             sh "${scannerHome}/bin/sonar-scanner\
+    agent any
+    stages{
+        stage("test-sonar"){
+            steps{
+                script {
+                    withSonarQubeEnv("sonarQube") {
+                    sh "${scannerHome}/bin/sonar-scanner \
                         -Dsonar.projectKey=mern-app\
                         -Dsonar.sources=. \
-                        -Dsonar.host.url=http://15.236.24.79:9000/\
+                        -Dsonar.host.url=http://15.236.24.79:9000/ \
                         -Dsonar.login=admin \
-                        -Dsonar.password=123456789"
-           }
-                  
-          
-          }
-         
-         }
-         }
-  
-  
-  
-  
-  
-  
-  
- 
- }
-} 
+                        -Dsonar.password=admin"
+                    } 
+                }
+            }
+        }
+        stage("install dependencies"){
+
+            steps{
+                sh 'npm install'
+            }
+        }
+
+        stage("docker-build"){
+            steps{
+                script {
+                    dockerImage = docker.build imagename
+                    docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push("$BUILD_NUMBER")
+                    dockerImage.push('latest')
+                    }
+                }
+            }
+        }
+}
