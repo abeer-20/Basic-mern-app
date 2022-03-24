@@ -8,6 +8,7 @@ pipeline
     dockerImagefront = 'image-front' 
     imagenamemongo = "abeerab/db" 
     dockerImagemongo = 'mongo'
+  } 
 // scannerHome = tool name: 'sonarqube-scanner' 
 agent any
  stages { 
@@ -51,7 +52,7 @@ agent any
         } 
     } 
 }  
-     stage('Deploy App') { 
+   stage('Deploy App') { 
           
        { steps { withCredentials([ string(credentialsId: 'my_kubernetes', variable: 'api_token') ]) {
      
@@ -60,12 +61,3 @@ agent any
     }
    } 
  }
-
-     
-
-
-
-
-
-
-
