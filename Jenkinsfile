@@ -1,4 +1,4 @@
-pipeline
+pipeline {
 { environment 
  registryCredential = "dockerhub_credentials" 
 
