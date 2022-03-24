@@ -21,18 +21,17 @@ agent any
   
         }
       stage("test-sonar"){
-        steps{
-          script {
-            withSonarQubeEnv("sonarQube"){
-              sh "${scannerHome}/bin/sonar-scanner \
-              -Dsonar.projectkey=mern-app\
-              -Dsonar.sources=.\
-              -Dsonar.host.url=hhtp://localhost:9000/\
-              -Dsonar.login=admin \
-              -Dsonar.password=123456789"
-            }
-          }
-        }
-      }  
+            steps{
+                script {
+                    withSonarQubeEnv("sonarQube") {
+                    sh "${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=mern-app\
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://15.236.24.79:9000/ \
+                        -Dsonar.login=admin \
+                        -Dsonar.password=123456789"
+                    } 
+                }
+           
  }
 }
