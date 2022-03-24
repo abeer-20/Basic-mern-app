@@ -1,9 +1,7 @@
 pipeline {
   
    agent any
-   parameters {
-       string (name:'VERSION', defaultvalue: '', description:'version to deploy on prod') 
-   }
+ 
    tools {
        NodeJS 'node 16.14.1'
    }
