@@ -1,6 +1,5 @@
 pipeline
 { environment 
-     SERVER_CREDENTIALS = credentials('server-credentials')
 { registryCredential = "dockerhub_credentials" 
 
     imagenameback = "abeerab/backimage:latest" 
@@ -60,10 +59,4 @@ agent any
     }
   }
 } 
-
-
-
-
-
-
 
