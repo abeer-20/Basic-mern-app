@@ -1,24 +1,13 @@
 pipeline { 
 agent any
-  environment {
-
- registryCredential = "dockerhub_credentials" 
-
-    imagenameback = "abeerab/backimage:latest" 
-    dockerImageback = 'image-back' 
-    imagenamefront = "abeerab/firstimage:latest" 
-    dockerImagefront = 'image-front' 
-    imagenamemongo = "abeerab/db:latest" 
-    dockerImagemongo = 'mongo'
-  } 
-// scannerHome = tool name: 'sonarqube-scanner' 
 
  stages { 
        stage('SonarQube analysis') {
            steps { 
              script {
-                scannerHome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation' withSonarQubeEnv('sonarqube-server') {
-                sh "${scannerHome}/bin/sonar-scanner" 
+                scannerHome = tool name: 'SonarScanner',
+                 type: 'hudson.plugins.sonar.SonarRunnerInstallation' withSonarQubeEnv('sonarqube-server') {
+                  sh "${scannerHome}/bin/sonar-scanner" 
               }
               }
             }
@@ -30,29 +19,5 @@ agent any
              sh 'docker --version'
                } 
           }
-
-     stage("docker-build") { 
-           steps { 
-               script { 
-                 dockerImageback = docker.build imagenameback docker.withRegistry( '', registryCredential ) { 
-                 dockerImageback.push("$BUILD_NUMBER") dockerImageback.push('latest') 
-             } 
-           } 
-            script { dockerImagefront = docker.build imagenamefront docker.withRegistry( '', registryCredential ) { 
-                 dockerImagefront.push("$BUILD_NUMBER") dockerImagefront.push('latest') 
-             } 
-            } 
-                script { dockerImagemongo = docker.build imagenamemongo docker.withRegistry( '', registryCredential ) { 
-                dockerImagemongo.push("$BUILD_NUMBER") dockerImagemongo.push('latest')
-            } 
-        } 
-    } 
-}
-   stage('Deploy App') { 
-
  }
- }
- }
- }
-}
 }
