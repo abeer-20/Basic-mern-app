@@ -4,20 +4,15 @@ pipeline
 
     imagenameback = "abeerab/backimage:latest" 
     dockerImageback = 'image-back' 
-    imagenamefront = "oussama24/frontendapp:latest" 
+    imagenamefront = "abeerab/firstimage:latest:" 
     dockerImagefront = 'image-front' 
-    imagenamemongo = "abeerab/firstimage:latest" 
+    imagenamemongo = "mongo:4.2.0 " 
     dockerImagemongo = 'mongo'
 // scannerHome = tool name: 'sonarqube-scanner' } 
 agent any
  stages { 
-       stage('scan') {
-          steps {
-             withSonarQubeEnv(installationName: 'SonarQube') {
-              sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
-        }
-      }
-   }
+        
+   
        
        stage('SonarQube analysis') {
            steps { 
@@ -66,4 +61,10 @@ agent any
     }
   }
 } 
+
+
+
+
+
+
 
