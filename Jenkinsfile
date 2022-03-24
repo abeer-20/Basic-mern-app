@@ -29,7 +29,7 @@ agent any
               -Dsonar.sources=.\
               -Dsonar.host.url=hhtp://localhost:9000/ \
               -Dsonar.login=admin \
-              -Dsonar.password=123456789"
+              -Dsonar.password=123456789
             }
           }
         }
