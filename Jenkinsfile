@@ -6,7 +6,7 @@ agent any
            steps { 
              script {
                 scannerHome = tool name: 'SonarScanner',
-                 type: 'hudson.plugins.sonar.SonarRunnerInstallation' withSonarQubeEnv('sonarqube-server') {
+                 type: 'hudson.plugins.sonar.SonarRunnerInstallation' withSonarQubeEnv('SonarScanner') {
                   sh "${scannerHome}/bin/sonar-scanner" 
               }
               }
@@ -27,7 +27,7 @@ agent any
               sh "${scannerHome}/bin/sonar-scanner \
               -Dsonar.projectkey=mern-app\
               -Dsonar.sources=.\
-              -Dsonar.host.url=hhtp://localhost:9000/ \
+              -Dsonar.host.url=hhtp://localhost:9000/\
               -Dsonar.login=admin \
               -Dsonar.password=123456789"
             }
