@@ -53,14 +53,19 @@ agent any
 }  
    stage('Deploy App') { 
           steps {
-        echo 'deploying the application ...'
-
+       { steps { withCredentials([ string(credentialsId: 'my_kubernetes', variable: 'api_token') ]) {
+          sh 'kubectl --token $api_token --server http://localhost:9000/ --insecure-skip-tls-verify=true apply -f ./Kubernetes '  
+       } } } }
 
 
      }
     }
   }
 } 
+
+
+
+
 
 
 
