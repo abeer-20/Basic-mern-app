@@ -8,7 +8,7 @@ pipeline
     dockerImagefront = 'image-front' 
     imagenamemongo = "abeerab/db" 
     dockerImagemongo = 'mongo'
-// scannerHome = tool name: 'sonarqube-scanner' } 
+// scannerHome = tool name: 'sonarqube-scanner' 
 agent any
  stages { 
         
