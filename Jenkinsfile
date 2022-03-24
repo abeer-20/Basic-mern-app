@@ -23,7 +23,7 @@ agent any
       stage("test-sonar"){
         steps{
           script {
-            withSonarQubeEnv("sq1"){
+            withSonarQubeEnv("sonarQube"){
               sh "${scannerHome}/bin/sonar-scanner \
               -Dsonar.projectkey=mern-app\
               -Dsonar.sources=.\
