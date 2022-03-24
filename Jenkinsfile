@@ -19,5 +19,18 @@ agent any
              sh 'docker --version'
                } 
           }
+      stage("test-sonar"){
+            steps{
+                script {
+                    withSonarQubeEnv("sonarQube") {
+                    sh "${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=mern-app \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://localhost:9000/ \
+                        -Dsonar.login=admin \
+                        -Dsonar.password=123456789"
+                    } 
+                }
+            }
  }
 }
