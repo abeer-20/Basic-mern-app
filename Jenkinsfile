@@ -1,6 +1,6 @@
 pipeline {
 { environment 
- registryCredential = "dockerhub_credentials" 
+ { registryCredential = "dockerhub_credentials" 
 
     imagenameback = "abeerab/backimage:latest" 
     dockerImageback = 'image-back' 
@@ -8,6 +8,7 @@ pipeline {
     dockerImagefront = 'image-front' 
     imagenamemongo = "abeerab/db" 
     dockerImagemongo = 'mongo'
+ }
   } 
 // scannerHome = tool name: 'sonarqube-scanner' 
 agent any
