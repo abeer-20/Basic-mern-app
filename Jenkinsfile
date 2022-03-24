@@ -11,7 +11,14 @@ pipeline
 // scannerHome = tool name: 'sonarqube-scanner' } 
 agent any
  stages { 
-      
+       stage('scan') {
+          steps {
+             withSonarQubeEnv(installationName: 'SonarQube') {
+              sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+        }
+      }
+   }
+       
        stage('SonarQube analysis') {
            steps { 
              script {
