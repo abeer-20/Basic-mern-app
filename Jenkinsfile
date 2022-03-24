@@ -6,7 +6,7 @@ pipeline {
     dockerImageback = 'image-back' 
     imagenamefront = "abeerab/firstimage:latest" 
     dockerImagefront = 'image-front' 
-    imagenamemongo = "abeerab/db" 
+    imagenamemongo = "abeerab/db:latest" 
     dockerImagemongo = 'mongo'
  }
   } 
@@ -45,7 +45,7 @@ agent any
              } 
              } 
                 script { dockerImagemongo = docker.build imagenamemongo docker.withRegistry( '', registryCredential ) { 
-                dockerImagemongo.push("$BUILD_NUMBER") dockerImagemongo.push('4.2.0')
+                dockerImagemongo.push("$BUILD_NUMBER") dockerImagemongo.push('latest')
 
 
 
