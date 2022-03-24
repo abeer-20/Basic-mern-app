@@ -1,4 +1,5 @@
-{ 
+pipeline { 
+agent any
   environment {
 
  registryCredential = "dockerhub_credentials" 
@@ -7,15 +8,12 @@
     dockerImageback = 'image-back' 
     imagenamefront = "abeerab/firstimage:latest" 
     dockerImagefront = 'image-front' 
-    imagenamemongo = "abeerab/db" 
+    imagenamemongo = "abeerab/db:latest" 
     dockerImagemongo = 'mongo'
   } 
 // scannerHome = tool name: 'sonarqube-scanner' 
-agent any
+
  stages { 
-        
-   
-       
        stage('SonarQube analysis') {
            steps { 
              script {
@@ -26,7 +24,7 @@ agent any
             }
     }
       stage("build"){ 
-    
+
            steps {
              sh 'npm install' 
              sh 'docker --version'
@@ -43,32 +41,21 @@ agent any
             script { dockerImagefront = docker.build imagenamefront docker.withRegistry( '', registryCredential ) { 
                  dockerImagefront.push("$BUILD_NUMBER") dockerImagefront.push('latest') 
              } 
-             } 
+            } 
                 script { dockerImagemongo = docker.build imagenamemongo docker.withRegistry( '', registryCredential ) { 
-                dockerImagemongo.push("$BUILD_NUMBER") dockerImagemongo.push('4.2.0')
-
-
-
+                dockerImagemongo.push("$BUILD_NUMBER") dockerImagemongo.push('latest')
             } 
         } 
     } 
-}  
+}
    stage('Deploy App') { 
-          
+
        { steps { withCredentials([ string(credentialsId: 'my_kubernetes', variable: 'api_token') ]) {
-     
-          sh 'kubectl --token $api_token --server http://localhost:9000 --insecure-skip-tls-verify=true apply -f ./Kubernetes '  
+
+          sh 'kubectl --token $api_token --server http://localhost:9000/ --insecure-skip-tls-verify=true apply -f ./Kubernetes '
        }
-    }
-   } 
  }
  }
-
-     
-
-
-
-
-
-
-
+ }
+ }
+}
