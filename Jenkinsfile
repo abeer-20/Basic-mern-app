@@ -23,11 +23,11 @@ agent any
       stage("test-sonar"){
         steps{
           script {
-            withSonarQubeEnv("sonarQube"){
+            withSonarQubeEnv("sq1"){
               sh "${scannerHome}/bin/sonar-scanner \
               -Dsonar.projectkey=mern-app\
               -Dsonar.sources=.\
-              -Dsonar.host.url=hhtp://localhost:9000/ \
+              -Dsonar.host.url=hhtp://localhost:9000/\
               -Dsonar.login=admin \
               -Dsonar.password=123456789
             }
